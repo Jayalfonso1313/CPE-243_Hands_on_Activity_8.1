@@ -1,0 +1,20 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+    - name: Transfer executable to manage node
+      fetch:
+        src: traffic.pcap
+        dest: /home/jayalfonso/CPE243-CPE32S3/
+
+    - block:
+      - name: Verifying if alread extracted PCAP
+        shell: cd /CPE243-CPE32S3/192.168.56.103/traffic.pcap | cat traffic.pcap
+        register: extract_PCAP
+
+    - debug:
+        msg="{{ extract_PCAP }}"
+
+
